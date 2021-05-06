@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Main
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% for r in pagination %}
+    <div class="container bg-white rounded my-3 p-4" onclick="window.location.href='{{ path('editRecetas', {id:r.id}) }}'">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 flex-grow-1 bd-highlight">
+                <h2>{{ r.receta }}</h2>
+                <div class="my-2" style="color:#3282b8; font-size: 20px;">
+                    Categoria: {{ r.categoria }}
+                </div>
+                <div class="my-2" style="color:#3282b8; font-size: 20px;">
+                    Creado por: {{ r.nombre }}
+                </div>
+            </div>
+
+            <div class="p-2 bd-highlight">
+                <div class="align-self-center">
+                    <img class="rounded" src="{{ asset('uploads/photos/'~r.imagen) }}" width="150px">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="text-justify my-3" style="font-size: 20px;">
+            Ingredientes: {{ r.ingredientes }}<br>
+            Preparación: {{ r.preparacion }}
+        </div>
+    </div>
+    {% endfor %}
+    <div class="d-flex justify-content-center">
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
